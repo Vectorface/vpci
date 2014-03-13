@@ -1,0 +1,13 @@
+{
+	"name": "vectorface/CacheInterface",
+	"description": "A singleton cache factory that provides a common interface for caching user data.",
+	"authors": [
+		{
+			"name": "Ethan Aubuchon",
+			"email": "ethan@vectorface.ca"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0"
+	}
+}

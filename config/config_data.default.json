@@ -1,0 +1,13 @@
+{
+
+	"memcacheServers":[
+		{
+			"host":"localhost",
+			"port":"11211"
+		}
+	],
+
+	"tempFileCacheDir":"casinotempcache",
+	"tempFileExt":"tempcache"
+
+}
