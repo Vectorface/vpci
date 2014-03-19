@@ -57,6 +57,9 @@ class APCCache implements Cache {
 	}
 
 	public function flush() {
-		return apc_clear_cache();
+		if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
+			return apc_clear_cache();
+		}
+		return apc_clear_cache('user');
 	}
 }
