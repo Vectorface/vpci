@@ -1,7 +1,0 @@
-Check for php extensions using extension_loaded:
-http://php.net/manual/en/function.extension-loaded.php
-
-Caching (in order):
-	- APC
-	- Memcache
-	- Tempfile 
