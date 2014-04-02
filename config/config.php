@@ -1,6 +1,6 @@
 <?php
 
-class Config
+class WebsiteConfig
 {
 	// Relative file name of the config file that will be used
 	public static $file = "config_data.json";
@@ -9,24 +9,50 @@ class Config
 	// back to its original settings
 	public static $default = "config_data.default.json";
 
+	private static $config_data_instance;
+
 	/**
 	 * Retrieves and returns all config data in the config JSON file
 	 * @return Array An associative array of all data in the config JSON file
 	 */
 	public static function get_all()
 	{
-		if(!file_exists(__DIR__."/".self::$file)) {
-			self::reset_defaults();
+		if (isset(self::$config_data_instance)) {
+			return self::$config_data_instance;
+		}
+		$custom_data = [];
+		if(file_exists(__DIR__."/".self::$file)) {
+			$custom_data = json_decode(file_get_contents(__DIR__."/".self::$file), true);
 		}
 		
-		$json_data = file_get_contents(__DIR__."/".self::$file);
-		
-		if(empty($json_data))
-		{
-			self::reset_defaults();
+		$data = json_decode(file_get_contents(__DIR__."/".self::$default), true);
+
+		self::$config_data_instance = self::mergeConfigs($custom_data, $data);
+		return self::$config_data_instance;
+	}
+
+	/**
+	 * Merges one associative array of config data into the other.
+	 * Note: in the event of a data conflict, the merge from data will be used
+	 * @param  Array $mergeFrom Config data to be added to the mergeTo data
+	 * @param  Array $mergeTo   Config data that will be added to
+	 * @return array            The merged config data
+	 */
+	private static function mergeConfigs($mergeFrom = [], $mergeTo = [])
+	{
+		foreach ($mergeFrom as $key => $value) {
+			if(is_array($value) && self::array_is_assoc($value)) {
+				$mergeTo[$key] = self::mergeConfigs($value, $mergeTo[$key]);
+			} else {
+				$mergeTo[$key] = $value;
+			}
 		}
-		$data = json_decode($json_data, true);
-		return $data;
+		return $mergeTo;
+	}
+
+	private static function array_is_assoc($array)
+	{
+		return array_keys($array) !== range(0, count($array)-1);
 	}
 
 	/**
@@ -108,11 +134,8 @@ class Config
 	 */
 	public function __construct($config_data = [], $persistent = true)
 	{
-		$this->config = self::get_all();
 
-		foreach ($config_data as $key => $value) {
-			$this->config[$key] = $value;
-		}
+		$this->config = self::mergeConfigs($config_data, self::get_all());
 
 		$this->persistent = $persistent;
 	}
