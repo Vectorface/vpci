@@ -8,12 +8,6 @@ require_once(__DIR__."/concrete/TempFileCache.php");
 class CacheSingleton
 {
 	private static $instance;
-	private $cache;
-
-	private function __construct()
-	{
-		$this->cache = self::getConcreteCache();
-	}
 
 	/**
 	 * Grabs an instance of the CacheSingleton and returns its cache instance
@@ -22,9 +16,9 @@ class CacheSingleton
 	public static function getCache()
 	{
 		if(!isset($instance)) {
-			self::$instance = new CacheSingleton();
+			self::$instance = self::getConcreteCache();
 		}
-		return self::$instance->cache;
+		return self::$instance;
 	}
 
 	/**
