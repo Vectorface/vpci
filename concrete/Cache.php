@@ -1,15 +1,10 @@
 <?php
+require_once(__DIR__."/../config/config.php");
 
 /**
  * Cache: A common interface to various types of caches
  */
 interface Cache {
-	/**
-	 * Cache singleton: fetch an instance of this cache type.
-	 *
-	 * @return Cache An initialized instance of the cache.
-	 */
-	public static function getInstance();
 
 	/**
 	 * Fetch a cache entry by key.

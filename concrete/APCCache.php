@@ -17,16 +17,8 @@ require_once(__DIR__."/Cache.php");
  */
 
 class APCCache implements Cache {
-	protected static $instance;
 
-	public static function getInstance() {
-		if (!(self::$instance instanceof self)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-	public function __construct() {
+	public function __construct($config = null) {
 		if (!extension_loaded('apc')) {
 			throw new Exception('Unable to initialize APCCache: APC extension not loaded.');
 		}

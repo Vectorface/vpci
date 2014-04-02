@@ -1,6 +1,6 @@
 <?php
 
-class WebsiteConfig
+class Config
 {
 	// Relative file name of the config file that will be used
 	public static $file = "config_data.json";
@@ -95,22 +95,6 @@ class WebsiteConfig
 	{
 		$json_data = file_get_contents(__DIR__."/".self::$default);
 		file_put_contents(__DIR__."/".self::$file, $json_data);
-	}
-
-	/**
-	 * Function returns a memcache server
-	 * 		Used in MCCache object creation
-	 * @return Memcache A memcache object to be used by the MCCache interface
-	 */
-	public static function getMemcache()
-	{
-		$cache = new Memcache();
-		$servers = self::get("memcacheServers");
-
-		foreach ($servers as $s) {
-			$cache->addServer($s['host'], $s['port']);
-		}
-		return $cache;
 	}
 
 

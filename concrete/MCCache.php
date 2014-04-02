@@ -19,28 +19,19 @@ require_once(__DIR__."/Cache.php");
  */
 
 class MCCache implements Cache {
-	protected static $instance;
-
-	public static function getInstance() {
-		if (!(self::$instance instanceof self)) {
-			if (!class_exists('Config')) {
-				throw new Exception('Unable to create instance of ' . __CLASS__ . ': class Config not found');
-			}
-			self::$instance = new self(Config::getMemcache());
-		}
-		return self::$instance;
-	}
 
 	private $mc;
+	private $config;
 
-	public function __construct(&$mc = null) {
+	public function __construct($config = null, &$mc = null) {
+		$this->config = isset($config) ? $config : new Config();
 		if (isset($mc)) {
 			if (!($mc instanceof Memcache)) {
 				throw new Exception('Invalid parameter: expected a Memcache object.');
 			}
 			$this->mc = $mc;
 		} else {
-			$this->mc = Config::getMemcache();
+			$this->mc = $this->getMemcache();
 		}
 	}
 
@@ -70,5 +61,17 @@ class MCCache implements Cache {
 
 	public function flush() {
 		return $this->mc->flush();
+	}
+
+	private function getMemcache() {
+		$cache = new Memcache();
+
+		$servers = $this->config->getConfigVal("memcacheServers");
+
+		foreach ($servers as $s) {
+			$cache->addServer($s['host'], $s['port']);
+		}
+
+		return $cache;
 	}
 }

@@ -4,28 +4,21 @@ require_once(__DIR__."/Cache.php");
 
 class TempFileCache implements Cache
 {
-	protected static $instance;
-
 	private $directory;
 	private $extension;
 	private $datetime;
+	private $config;
 
-	public static function getInstance() {
-		if (!isset(self::$instance)) {
-			self::$instance = new TempFileCache();
-		}
-		return self::$instance;
-	}
-
-	public function __construct($datetime = null)
+	public function __construct($config = null, $datetime = null)
 	{
+		$this->config = isset($config) ? $config : new Config();
+
+		$this->directory = sys_get_temp_dir();
+
 		// Checking to see if a directory has been set in config.php
-		if(Config::get('tempFileCacheDir')) {
+		if($this->config->getConfigVal('tempFileCacheDir')) {
 			// If a directory has been set in config.php, dir is formatted as <systemTemp>/<configdir>
-			$this->directory = sys_get_temp_dir() . "/" .Config::get('tempFileCacheDir');
-		} else {
-			// Othersiwse the dir is formatted as <systemTemp>
-			$this->directory = sys_get_temp_dir();
+			$this->directory .= "/" .Config::get('tempFileCacheDir');
 		}
 
 		// If the directory does not already exist, it will be created
@@ -33,21 +26,13 @@ class TempFileCache implements Cache
 			mkdir($this->directory);
 		}
 
-		// Checks to see if a file extension has been specified in the config.php
-		// Otherwise extension is set to empty string (ie no extension)
-		if(Config::get('tempFileExt')) {
-			$this->extension = Config::get('tempFileExt');
-		} else {
-			$this->extension = ".tempcache";
-		}
+		// Grab file extension from config
+		$this->extension = $this->config->getConfigVal('tempFileExt');
+
 
 		// Checks for custom DateTime object
 		// This is primarily used for dependency injection in testing
-		if(!isset($datetime)) {
-			$this->datetime = new DateTime();
-		} else {
-			$this->datetime = $datetime;
-		}
+		$this->datetime = isset($datetime) ? $datetime : new DateTime();
 	}
 
 	/**
