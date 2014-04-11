@@ -16,7 +16,7 @@ require_once(__DIR__."/Cache.php");
  *   Capable of approximately 153374.23 requests/second
  */
 
-class APCCache implements Cache {
+class APCCache extends Cache {
 
 	public function __construct($config = null) {
 		if (!extension_loaded('apc')) {
@@ -24,7 +24,7 @@ class APCCache implements Cache {
 		}
 	}
 
-	public function get($entry) {
+	public function getConcrete($entry) {
 		return apc_fetch($entry);
 	}
 

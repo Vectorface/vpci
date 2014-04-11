@@ -18,7 +18,7 @@ require_once(__DIR__."/Cache.php");
  *   Capable of approximately 11678 requests/second
  */
 
-class MCCache implements Cache {
+class MCCache extends Cache {
 
 	private $mc;
 	private $config;
@@ -35,7 +35,7 @@ class MCCache implements Cache {
 		}
 	}
 
-	public function get($entry) {
+	public function getConcrete($entry) {
 		return $this->mc->get($entry);
 	}
 

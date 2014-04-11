@@ -4,7 +4,7 @@ require_once(__DIR__."/../config/config.php");
 /**
  * Cache: A common interface to various types of caches
  */
-interface Cache {
+abstract class Cache {
 
 	/**
 	 * Fetch a cache entry by key.
@@ -12,7 +12,7 @@ interface Cache {
 	 * @param String $key The key for the entry to fetch
 	 * @return mixed The value stored in the cache for $key
 	 */
-	public function get($key);
+	public abstract function getConcrete($key);
 
 	/**
 	 * Set an entry in the cache.
@@ -21,15 +21,29 @@ interface Cache {
 	 * @param mixed $value The item to store in the cache
 	 * @param int $ttl The time to live (or expiry) of the cached item. Not all caches honor the TTL.
 	 */
-	public function set($key, $value, $ttl);
+	public abstract function set($key, $value, $ttl);
 
 	/**
 	 * Manually clean out entries older than their TTL
 	 */
-	public function clean();
+	public abstract function clean();
 
 	/**
 	 * Clear the cache.
 	 */
-	public function flush();
+	public abstract function flush();
+
+	public function get($key, $callable = "", $ttl = -1)
+	{
+		$data = $this->getConcrete($key);
+
+		if (empty($data) && !empty($callable)) {
+			$data = call_user_func($callable);
+			if ($ttl > 0 && !empty($data)) {
+				$this->set($key, $data, $ttl);
+			}
+		}
+
+		return $data;
+	}
 }

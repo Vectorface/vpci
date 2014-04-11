@@ -2,6 +2,8 @@
 
 abstract class GenericCacheTest extends PHPUnit_Framework_TestCase
 {
+
+	private static $called;
 	/**
      * @dataProvider cacheDataProvider
      */
@@ -15,6 +17,20 @@ abstract class GenericCacheTest extends PHPUnit_Framework_TestCase
 		$actual = $this->cache->get($key . ".fake");
 
 		$this->assertFalse($actual);
+	}
+
+	/**
+	 * @dataProvider cacheDataProvider
+	 */
+	public function testGetWithWriteThrough($key, $data, $ttl)
+	{
+		self::setCall($data);
+
+		$actual = $this->cache->get($key, "GenericCacheTest::getCall", 3600);
+		$this->assertEquals($data, $actual);
+
+		$actual = $this->cache->get($key);		
+		$this->assertEquals($data, $actual);
 	}
 
 	/**
@@ -76,5 +92,15 @@ abstract class GenericCacheTest extends PHPUnit_Framework_TestCase
 				3
 			],
 		];
+	}
+
+	public static function getCall()
+	{
+		return self::$called;
+	}
+
+	private static function setCall($called)
+	{
+		self::$called = $called;
 	}
 }

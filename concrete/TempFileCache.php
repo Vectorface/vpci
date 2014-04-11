@@ -2,7 +2,7 @@
 
 require_once(__DIR__."/Cache.php");
 
-class TempFileCache implements Cache
+class TempFileCache extends Cache
 {
 	private $directory;
 	private $extension;
@@ -42,7 +42,7 @@ class TempFileCache implements Cache
 	 * @return mixed 	  The value stored in the cache for $key
 	 *                    null if no valid data exists
 	 */
-	public function get($key)
+	public function getConcrete($key)
 	{
 		// Turns the key into a filepath and checks that the path exists
 		$file = $this->makePath($key);
