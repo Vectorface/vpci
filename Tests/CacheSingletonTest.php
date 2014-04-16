@@ -6,10 +6,12 @@ require_once(__DIR__."/../CacheSingleton.php");
 class CacheSingletonTest extends GenericCacheTest
 {
 	protected $cache;
+	protected $config;
 
 	protected function setUp()
 	{
-		$this->cache = CacheSingleton::getCache();
+		$this->config = new Config([], false);
+		$this->cache = CacheSingleton::getCache($this->config);
 	}
 
 	public function checkSingularity()

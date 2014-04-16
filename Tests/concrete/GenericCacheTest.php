@@ -73,6 +73,29 @@ abstract class GenericCacheTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse($actual);
 	}
 
+	/**
+	 * @dataProvider cacheDataProvider
+	 */
+	public function testPrefix($key, $data, $ttl)
+	{
+		$this->cache->set("test".$key, $data, $ttl);
+		
+		$this->config->setConfigValue("cachePrefix", "test");
+
+		$actual = $this->cache->get($key);
+		
+		$this->assertEquals($data, $actual);
+
+		$this->cache->set("other".$key, $data, $ttl);
+		
+		$this->config->setConfigValue("cachePrefix", "");
+
+		$actual = $this->cache->get("testother".$key);
+
+		$this->assertEquals($data, $actual);
+	}
+
+
 	public function cacheDataProvider()
 	{
 		return [

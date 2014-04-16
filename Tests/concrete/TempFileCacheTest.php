@@ -9,11 +9,13 @@ class TempFileCacheTest extends GenericCacheTest
 {
 	protected $cache;
 	protected $timehelper;
+	protected $config;
 
 	protected function setUp()
 	{
 		$this->timehelper = new DateTimeHelper();
-		$this->cache = new TempFileCache(null, $this->timehelper);
+		$this->config = new Config([], false);
+		$this->cache = new TempFileCache($this->config, $this->timehelper);
 	}
 
 	protected function tearDown()

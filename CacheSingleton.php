@@ -14,9 +14,9 @@ class CacheSingleton
 	 * Grabs an instance of the CacheSingleton and returns its cache instance
 	 * @return Cache 		An object that implements the Cache interface
 	 */
-	public static function getCache($config_data = [])
+	public static function getCache($config = null)
 	{
-		$config = new Config($config_data);
+		$config = isset($config) ? $config : new Config();
 		if(!isset($instance)) {
 			self::$instance = self::getConcreteCache(null, $config);
 		}
