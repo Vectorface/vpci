@@ -1,4 +1,5 @@
 {
+    "cachePrefix": "",
     "memcacheServers": [
         {
             "host": "localhost",

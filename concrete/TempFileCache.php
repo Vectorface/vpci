@@ -7,16 +7,15 @@ class TempFileCache extends Cache
 	private $directory;
 	private $extension;
 	private $datetime;
-	private $config;
 
 	public function __construct($config = null, $datetime = null)
 	{
-		$this->config = isset($config) ? $config : new Config();
+		$config = isset($config) ? $config : new Config();
 
 		$this->directory = sys_get_temp_dir();
 
 		// Checking to see if a directory has been set in config.php
-		if($this->config->getConfigVal('tempFileCacheDir')) {
+		if($config->getConfigVal('tempFileCacheDir')) {
 			// If a directory has been set in config.php, dir is formatted as <systemTemp>/<configdir>
 			$this->directory .= "/" .Config::get('tempFileCacheDir');
 		}
@@ -27,12 +26,13 @@ class TempFileCache extends Cache
 		}
 
 		// Grab file extension from config
-		$this->extension = $this->config->getConfigVal('tempFileExt');
+		$this->extension = $config->getConfigVal('tempFileExt');
 
 
 		// Checks for custom DateTime object
 		// This is primarily used for dependency injection in testing
 		$this->datetime = isset($datetime) ? $datetime : new DateTime();
+		parent::__construct($config);
 	}
 
 	/**
@@ -142,7 +142,7 @@ class TempFileCache extends Cache
 	 */
 	private function hashKey($key)
 	{
-		return hash("sha256", $key);
+		return hash("sha256", $this->prefixKey($key));
 	}
 
 	/**

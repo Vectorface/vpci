@@ -22,14 +22,15 @@ class APCCache extends Cache {
 		if (!extension_loaded('apc')) {
 			throw new Exception('Unable to initialize APCCache: APC extension not loaded.');
 		}
+		parent::__construct($config);
 	}
 
-	public function getConcrete($entry) {
-		return apc_fetch($entry);
+	public function getConcrete($key) {
+		return apc_fetch($this->prefixKey($key));
 	}
 
-	public function set($entry, $value, $ttl) {
-		return apc_store($entry, $value, $ttl);
+	public function set($key, $value, $ttl) {
+		return apc_store($this->prefixKey($key), $value, $ttl);
 	}
 
 	/**
@@ -39,7 +40,7 @@ class APCCache extends Cache {
 	public function delete($keys)
 	{
 		foreach ($keys as $key) {
-			apc_delete($key);
+			apc_delete($this->prefixKey($key));
 		}
 		return null;
 	}

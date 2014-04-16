@@ -6,6 +6,15 @@ require_once(__DIR__."/../config/config.php");
  */
 abstract class Cache {
 
+	private $prefix;
+	private $config;
+
+	public function __construct($config = null)
+	{
+		$this->config = isset($config) ? $config : new Config();
+		$this->prefix = $this->config->getConfigVal("cachePrefix");
+	}
+
 	/**
 	 * Fetch a cache entry by key.
 	 *
@@ -45,5 +54,20 @@ abstract class Cache {
 		}
 
 		return $data;
+	}
+
+	public function setPrefix($prefix)
+	{
+		$this->prefix = $prefix;
+	}
+
+	public function prefixKey($key)
+	{
+		return $this->prefix . $key;
+	}
+
+	public function getConfigVal($key)
+	{
+		return $this->config->getConfigVal($key);
 	}
 }

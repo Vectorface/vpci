@@ -21,10 +21,10 @@ require_once(__DIR__."/Cache.php");
 class MCCache extends Cache {
 
 	private $mc;
-	private $config;
 
 	public function __construct($config = null, &$mc = null) {
-		$this->config = isset($config) ? $config : new Config();
+		$config = isset($config) ? $config : new Config();
+		parent::__construct($config);
 		if (isset($mc)) {
 			if (!($mc instanceof Memcache)) {
 				throw new Exception('Invalid parameter: expected a Memcache object.');
@@ -35,12 +35,12 @@ class MCCache extends Cache {
 		}
 	}
 
-	public function getConcrete($entry) {
-		return $this->mc->get($entry);
+	public function getConcrete($key) {
+		return $this->mc->get($this->prefixKey($key));
 	}
 
-	public function set($entry, $value, $ttl) {
-		return $this->mc->set($entry, $value, NULL, $ttl);
+	public function set($key, $value, $ttl) {
+		return $this->mc->set($this->prefixKey($key), $value, NULL, $ttl);
 	}
 
 	/**
@@ -50,7 +50,7 @@ class MCCache extends Cache {
 	public function delete($keys)
 	{
 		foreach ($keys as $key) {
-			$this->mc->delete($key);
+			$this->mc->delete($this->prefixKey($key));
 		}
 		return null;
 	}
@@ -66,7 +66,7 @@ class MCCache extends Cache {
 	private function getMemcache() {
 		$cache = new Memcache();
 
-		$servers = $this->config->getConfigVal("memcacheServers");
+		$servers = $this->getConfigVal("memcacheServers");
 
 		foreach ($servers as $s) {
 			$cache->addServer($s['host'], $s['port']);
