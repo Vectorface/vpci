@@ -41,12 +41,17 @@ abstract class Cache {
 	 */
 	public abstract function flush();
 
-	public function get($key, $callable = "", $ttl = -1)
+
+	public function get($key, $callable = [], $ttl = -1)
 	{
 		$data = $this->getConcrete($key);
 
 		if (empty($data) && !empty($callable)) {
-			$data = call_user_func($callable);
+			if (isset($callable["args"])) {
+				$data = call_user_func($callable["function"], $callable["args"]);
+			} else {
+				$data = call_user_func($callable["function"]);
+			}
 			if ($ttl > 0 && !empty($data)) {
 				$this->set($key, $data, $ttl);
 			}
