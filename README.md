@@ -1,6 +1,23 @@
-# Ca-Ching
+# VPCI (Vectorface PHP Caching Interface)
+---
 
-Ca-Ching is a lightweight, straight forward cache interface that employs a strategy pattern to allow users to use multiple types of cache with a single unified interface.
+VPCI is a lightweight, straight forward cache interface that employs a strategy pattern to allow users to use multiple types of cache with a single unified interface.  It has optional built in write through caching to handle information retrieval with a simple, single function call.
+
+Using VPCI allows developers to manage information retrieval and caching without having to worry about imlpementation.
+
+---
+
+## Contents
+
+1. [Currently Supported Cache Types](#currently-supported-cache-types)
+1. [Configurability](#configurability)
+1. [Use](#use)
+	2. [Get](#get)
+	2. [Set](#set)
+	2. [Clean](#clean)
+	2. [Flush](#flush)
+
+---
 
 ## Currently Supported Cache Types:
 
@@ -8,13 +25,19 @@ Ca-Ching is a lightweight, straight forward cache interface that employs a strat
 * Memcache
 * TempFileCache (A caching system that uses temporary files)
 
+---
+
 ## Configurability
 
-Ca-Ching comes with a easy to set-up configuration system.  Its default behaviour is to select the "best" (ordered as in the [Currently Supported](#currently-supported-cache-types) section) caching system.  The retieval of the cache is done with a singleton, meaning that you will not loose your reference to your cache once it has been created.  Instead, simply call CacheSingleton::GetCache() whenever the reference is needed.
+VPCI comes with a easy to set-up configuration system.  Its default behaviour is to select the "best" (ordered as in the [Currently Supported](#currently-supported-cache-types) section) caching system.  The retieval of the cache is done with a singleton, meaning that you will not loose your reference to your cache once it has been created.  Instead, simply call CacheSingleton::GetCache() whenever the reference is needed.
+
+---
 
 ## Use
 
-Ca-Ching is desinged to run entirely on four commands: `get()`, `set()`, `clean()` and `flush()`.
+VPCI is desinged to run entirely on four commands: `get()`, `set()`, `clean()` and `flush()`.
+
+---
 
 ### Get
 
@@ -22,6 +45,8 @@ The get function takes a single `$key` parameter.  This is the key of the item i
 
 	$key = "cache_item";
 	$cached_data = $cache->get(key);
+
+---
 
 ### Set
 
@@ -36,11 +61,15 @@ The set function is used to store data in the cache.  It takes 3 parameters:
 	$ttl = 3600 //This cache item will expire in one hour
 	$cache->set($key, $data, $ttl);
 
+---
+
 ### Clean
 
 The clean function is used to clear any expired items out of the cache.  Note that for many caching implementations this might not be nessarry.  Some cache implementations such as APC and Memcache clean themselves automatically.
 
 	$cache->clean();
+
+---
 
 ### Flush
 
