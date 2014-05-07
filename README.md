@@ -45,16 +45,34 @@ VPCI is designed to run entirely on four commands: `get()`, `set()`, `clean()` a
 
 The get function takes a single `$key` parameter.  This is the key of the item in the cache.  It returns the value stored with the given key.
 
-	$key = "cache_item";
-	$cachedData = $cache->get(key);
+```php
+$key = "cache_item";
+$cachedData = $cache->get(key);
+```php
 
 #### Write-Through
 
-VPCI has an optional write-through cache feature built into the `use()` method.  [Above](#get) ignores the write-through functionality, using VPCI as a standard caching interface.  The `use()` method can actually take three parameters and is defined as `use($key, $callable = [], $ttl = -1)`.  The parameters do the following:
+VPCI has an optional write-through cache feature built into the `use()` method.  [Above](#get) ignores the write-through functionality, using VPCI as a standard caching interface.  The `use()` method can actually take three parameters and is defined as `use($key, $callableArray = [], $ttl = -1)`.  The parameters do the following:
 
 1. `$key` - The key used to retrieve the cached item
-1. `$callable` - An optional callable object that will be called if no item exists in the cache.  The result will be returned
+1. `$callableArray` - An array with optional callable object("function") and argument array("args") that will be called if no item exists in the cache.  The result will be returned
 1. `$ttl` - The amount of time to store the item in the cache, if the callable is called.  If this is not set, the result will be returned but not stored in the cache.
+
+```php
+// Will return data if it is in the cache
+// Otherwise it will return false
+$cachedData = $cache->get("key");
+
+// Will return data if it is in the cache
+// Otherwise will return result of callable
+// Cache will not be updated
+$cachedData = $cache->get("key", ["function" => "callable", "args" => []]);
+
+// Will return data if it is in the cache
+// Otherwise will return result of callable
+// The result of the callable will be stored in the cache with key = "key" and ttl=3600
+$cachedData = $cache->get("key", ["function" => "callable", "args" => []], 3600);
+```
 
 ### Set
 
