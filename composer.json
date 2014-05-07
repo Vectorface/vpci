@@ -1,13 +1,16 @@
 {
-	"name": "vectorface/CacheInterface",
-	"description": "A singleton cache factory that provides a common interface for caching user data.",
+	"name": "vectorface/vpci",
+	"description": "A single simple interface that handles multiple caching implementations.",
 	"authors": [
 		{
 			"name": "Ethan Aubuchon",
-			"email": "ethan@vectorface.ca"
+			"email": "ethan@vectorface.ca",
+			"homepage": "http://www.vectorface.com"
 		}
 	],
 	"require": {
 		"php": ">=5.4.0"
-	}
+	},
+	"license": "MIT",
+	"homepage": "http://www.vectorface.com"
 }
