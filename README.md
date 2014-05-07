@@ -48,7 +48,7 @@ The get function takes a single `$key` parameter.  This is the key of the item i
 ```php
 $key = "cache_item";
 $cachedData = $cache->get(key);
-```php
+```
 
 #### Write-Through
 
