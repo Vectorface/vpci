@@ -64,10 +64,12 @@ The set function is used to store data in the cache.  It takes 3 parameters:
 1. `$data` the data to be stored in the cache
 1. `$ttl` the time to live of the cache item (the amount of time that the item should remain valid)
 
-	$key = "cache_item";
-	$data = "This will be stored in the cache"
-	$ttl = 3600 //This cache item will expire in one hour
-	$cache->set($key, $data, $ttl);
+```php
+$key = "cache_item";
+$data = "This will be stored in the cache"
+$ttl = 3600 //This cache item will expire in one hour
+$cache->set($key, $data, $ttl);
+```
 
 ### Clean
 
