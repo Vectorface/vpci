@@ -9,8 +9,12 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4.0"
+		"php": ">=5.3.0"
 	},
 	"license": "MIT",
-	"homepage": "http://www.vectorface.com"
+	"homepage": "http://www.vectorface.com",
+	"support": {
+        "issues": "https://github.com/vectorface/vpci/issues",
+        "source": "https://github.com/vectorface/vpci"
+    }
 }
