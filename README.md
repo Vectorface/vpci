@@ -16,6 +16,7 @@ Using VPCI allows developers to manage information retrieval and caching without
 	2. [Set](#set)
 	2. [Clean](#clean)
 	2. [Flush](#flush)
+1. [Prefix](#prefix)
 
 ***
 
@@ -100,6 +101,43 @@ The clean function is used to clear any expired items out of the cache.  Note th
 The flush function deletes all items in the cache.
 
 	$cache->flush();
+
+***
+[Top](#vpci-vectorface-php-caching-interface) - [Contents](#contents)
+***
+
+## Prefix
+
+VPCI allows its users to define a cache prefix to use on every cache entry.  This feature allows to create unique keys that will (hopefully) not conflict with any other process sharing the same cache.
+
+The prefix can be setup in one of two ways.  Either by modifying the program's [configuration](#configurability) or by calling a `setPrefix($prefix)` method.  
+
+*NOTE:* Prefixes set with the `setPrefix($prefix)` method are volitile, meaning they are not retained after the program terminates.
+
+#### Prefix Example
+
+If you set the prefix vaiable to `"vpci"`, for example:
+
+```json
+{
+	"cachePrefix": "vpci"
+}
+```
+
+If you then set a cached item:
+
+```php
+	$key = "key";
+	$data = "example data";
+	$ttl = 3600;
+
+	$cache->set($key, $data, $ttl);
+```
+This item would be stored within the cache with a key of `"vpci_key"`.  However, to retrieve it with the prefix still set, you would simply call:
+
+```php
+$data = $cache->get("key");
+```
 
 ***
 [Top](#vpci-vectorface-php-caching-interface) - [Contents](#contents)
