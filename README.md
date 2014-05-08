@@ -12,6 +12,7 @@ Using VPCI allows developers to manage information retrieval and caching without
 1. [Currently Supported Cache Types](#currently-supported-cache-types)
 1. [Configurability](#configurability)
 1. [Use](#use)
+	2. [Getting a Cache Object](#getting-a-cache-object)
 	2. [Get](#get)
 	2. [Set](#set)
 	2. [Clean](#clean)
@@ -39,6 +40,14 @@ VPCI comes with a easy to set-up configuration system.  Its default behavior is 
 ***
 
 ## Use
+
+### Getting a Cache Object
+
+VPCI has a singleton/factory that will chose the best available caching mechanism and return a cache object.
+
+```php
+$cache = CacheSingleton::getCache();
+```
 
 VPCI is designed to run entirely on four commands: `get()`, `set()`, `clean()` and `flush()`.
 
@@ -112,11 +121,11 @@ VPCI allows its users to define a cache prefix to use on every cache entry.  Thi
 
 The prefix can be setup in one of two ways.  Either by modifying the program's [configuration](#configurability) or by calling a `setPrefix($prefix)` method.  
 
-*NOTE:* Prefixes set with the `setPrefix($prefix)` method are volitile, meaning they are not retained after the program terminates.
+*NOTE:* Prefixes set with the `setPrefix($prefix)` method are volatile, meaning they are not retained after the program terminates.
 
 #### Prefix Example
 
-If you set the prefix vaiable to `"vpci"`, for example:
+If you set the prefix variable to `"vpci"`, for example:
 
 ```json
 {
