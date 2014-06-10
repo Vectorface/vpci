@@ -1,6 +1,8 @@
 <?php
 
-abstract class GenericCacheTest extends PHPUnit_Framework_TestCase
+namespace VF\CacheInterface\tests\concrete;
+
+abstract class GenericCacheTest extends \PHPUnit_Framework_TestCase
 {
 
 	private static $called;
@@ -26,7 +28,7 @@ abstract class GenericCacheTest extends PHPUnit_Framework_TestCase
 	{
 		self::setCall($data);
 
-		$actual = $this->cache->get($key, ["function"=>"GenericCacheTest::getCall"], 3600);
+		$actual = $this->cache->get($key, ["function"=>"VF\\CacheInterface\\tests\\concrete\\GenericCacheTest::getCall"], 3600);
 		$this->assertEquals($data, $actual);
 
 		$actual = $this->cache->get($key);		

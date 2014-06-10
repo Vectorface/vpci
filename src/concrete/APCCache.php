@@ -1,5 +1,11 @@
 <?php
+
+namespace VF\CacheInterface\concrete;
+
 require_once(__DIR__."/Cache.php");
+
+use VF\CacheInterface\concrete\Cache;
+
 /**
  * This cache is ridiculously fast, according to basic benchmarks:
  *
@@ -20,7 +26,7 @@ class APCCache extends Cache {
 
 	public function __construct($config = null) {
 		if (!extension_loaded('apc')) {
-			throw new Exception('Unable to initialize APCCache: APC extension not loaded.');
+			throw new \Exception('Unable to initialize APCCache: APC extension not loaded.');
 		}
 		parent::__construct($config);
 	}

@@ -1,5 +1,7 @@
 <?php
 
+namespace VF\CacheInterface\config;
+
 class Config
 {
 	// Relative file name of the config file that will be used

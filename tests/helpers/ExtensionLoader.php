@@ -1,5 +1,7 @@
 <?php
 
+namespace VF\CacheInterface\tests\helpers;
+
 interface ExtensionLoader
 {
 	public function is_loaded($ext);

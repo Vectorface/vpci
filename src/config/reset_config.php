@@ -2,4 +2,4 @@
 
 require_once(__DIR__."/config.php");
 
-Config::reset_defaults();
+VF\CacheInterface\config\Config::reset_defaults();

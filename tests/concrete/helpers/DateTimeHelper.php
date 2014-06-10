@@ -1,12 +1,14 @@
 <?php
 
-class DateTimeHelper extends DateTime
+namespace VF\CacheInterface\tests\concrete\helpers;
+
+class DateTimeHelper extends \DateTime
 {
 	private $timestamp;
 
 	public function __construct()
 	{
-		$date = new DateTime();
+		$date = new \DateTime();
 		$this->timestamp = $date->getTimestamp();
 	}
 

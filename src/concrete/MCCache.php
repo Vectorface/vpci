@@ -1,6 +1,11 @@
 <?php
 
+namespace VF\CacheInterface\concrete;
+
 require_once(__DIR__."/Cache.php");
+
+use VF\CacheInterface\concrete\Cache;
+use VF\CacheInterface\config\Config;
 
 /**
  * This cache is very fast, according to basic benchmarks:
@@ -26,8 +31,8 @@ class MCCache extends Cache {
 		$config = isset($config) ? $config : new Config();
 		parent::__construct($config);
 		if (isset($mc)) {
-			if (!($mc instanceof Memcache)) {
-				throw new Exception('Invalid parameter: expected a Memcache object.');
+			if (!($mc instanceof \Memcache)) {
+				throw new \Exception('Invalid parameter: expected a Memcache object.');
 			}
 			$this->mc = $mc;
 		} else {
@@ -64,7 +69,7 @@ class MCCache extends Cache {
 	}
 
 	private function getMemcache() {
-		$cache = new Memcache();
+		$cache = new \Memcache();
 
 		$servers = $this->getConfigVal("memcacheServers");
 

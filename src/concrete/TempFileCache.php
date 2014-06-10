@@ -1,6 +1,11 @@
 <?php
 
+namespace VF\CacheInterface\concrete;
+
 require_once(__DIR__."/Cache.php");
+
+use VF\CacheInterface\concrete\Cache;
+use VF\CacheInterface\config\Config;
 
 class TempFileCache extends Cache
 {
@@ -31,7 +36,7 @@ class TempFileCache extends Cache
 
 		// Checks for custom DateTime object
 		// This is primarily used for dependency injection in testing
-		$this->datetime = isset($datetime) ? $datetime : new DateTime();
+		$this->datetime = isset($datetime) ? $datetime : new \DateTime();
 		parent::__construct($config);
 	}
 
