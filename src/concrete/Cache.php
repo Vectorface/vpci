@@ -1,10 +1,10 @@
 <?php
 
-namespace VF\vpci\concrete;
+namespace Vectorface\vpci\concrete;
 
 require_once(__DIR__."/../config/config.php");
 
-use VF\vpci\config\Config;
+use Vectorface\vpci\config\Config;
 
 /**
  * Cache: A common interface to various types of caches

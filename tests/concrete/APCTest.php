@@ -1,14 +1,14 @@
 <?php
 
-namespace VF\vpci\tests\concrete;
+namespace Vectorface\vpci\tests\concrete;
 
 require_once(__DIR__."/GenericCacheTest.php");
 require_once(__DIR__."/../../src/concrete/APCCache.php");
 require_once(__DIR__."/../../src/config/config.php");
 
-use VF\vpci\concrete\APCCache;
-use VF\vpci\config\Config;
-use VF\vpci\tests\concrete\GenericCacheTest;
+use Vectorface\vpci\concrete\APCCache;
+use Vectorface\vpci\config\Config;
+use Vectorface\vpci\tests\concrete\GenericCacheTest;
 
 class APCCacheTest extends GenericCacheTest
 {

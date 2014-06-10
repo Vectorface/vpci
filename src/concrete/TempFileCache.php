@@ -1,11 +1,11 @@
 <?php
 
-namespace VF\vpci\concrete;
+namespace Vectorface\vpci\concrete;
 
 require_once(__DIR__."/Cache.php");
 
-use VF\vpci\concrete\Cache;
-use VF\vpci\config\Config;
+use Vectorface\vpci\concrete\Cache;
+use Vectorface\vpci\config\Config;
 
 class TempFileCache extends Cache
 {

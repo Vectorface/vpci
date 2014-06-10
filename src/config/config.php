@@ -1,6 +1,6 @@
 <?php
 
-namespace VF\vpci\config;
+namespace Vectorface\vpci\config;
 
 class Config
 {

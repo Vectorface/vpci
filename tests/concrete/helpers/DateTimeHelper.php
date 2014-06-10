@@ -1,6 +1,6 @@
 <?php
 
-namespace VF\vpci\tests\concrete\helpers;
+namespace Vectorface\vpci\tests\concrete\helpers;
 
 class DateTimeHelper extends \DateTime
 {

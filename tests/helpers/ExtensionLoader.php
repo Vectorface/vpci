@@ -1,6 +1,6 @@
 <?php
 
-namespace VF\vpci\tests\helpers;
+namespace Vectorface\vpci\tests\helpers;
 
 interface ExtensionLoader
 {
