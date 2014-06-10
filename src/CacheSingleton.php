@@ -10,6 +10,7 @@ require_once(__DIR__."/config/config.php");
 use Vectorface\vpci\concrete\TempFileCache;
 use Vectorface\vpci\concrete\APCCache;
 use Vectorface\vpci\concrete\MCCache;
+use Vectorface\vpci\config\Config;
 
 class CacheSingleton
 {
