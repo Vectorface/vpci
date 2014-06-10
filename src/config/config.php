@@ -1,6 +1,6 @@
 <?php
 
-namespace VF\CacheInterface\config;
+namespace VF\VCPI\config;
 
 class Config
 {

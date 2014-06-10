@@ -1,13 +1,13 @@
 <?php
 
-namespace VF\CacheInterface\tests\concrete;
+namespace VF\VCPI\tests\concrete;
 
 require_once(__DIR__."/GenericCacheTest.php");
 require_once(__DIR__."/../../src/concrete/MCCache.php");
 require_once(__DIR__."/../../src/config/config.php");
 
-use VF\CacheInterface\concrete\MCCache;
-use VF\CacheInterface\config\Config;
+use VF\VCPI\concrete\MCCache;
+use VF\VCPI\config\Config;
 
 class MCCacheTest extends GenericCacheTest
 {

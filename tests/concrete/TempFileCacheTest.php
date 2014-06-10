@@ -1,15 +1,15 @@
 <?php
 
-namespace VF\CacheInterface\tests\concrete;
+namespace VF\VCPI\tests\concrete;
 
 require_once(__DIR__."/helpers/DateTimeHelper.php");
 require_once(__DIR__."/GenericCacheTest.php");
 require_once(__DIR__."/../../src/concrete/TempFileCache.php");
 require_once(__DIR__."/../../src/config/config.php");
 
-use VF\CacheInterface\concrete\TempFileCache;
-use VF\CacheInterface\config\Config;
-use VF\CacheInterface\tests\concrete\helpers\DateTimeHelper;
+use VF\VCPI\concrete\TempFileCache;
+use VF\VCPI\config\Config;
+use VF\VCPI\tests\concrete\helpers\DateTimeHelper;
 
 class TempFileCacheTest extends GenericCacheTest
 {

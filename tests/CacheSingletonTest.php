@@ -1,13 +1,13 @@
 <?php
 
-namespace VF\CacheInterface\tests;
+namespace VF\VCPI\tests;
 
 require_once(__DIR__."/concrete/GenericCacheTest.php");
 require_once(__DIR__."/../src/CacheSingleton.php");
 
-use VF\CacheInterface\CacheSingleton;
-use VF\CacheInterface\config\Config;
-use VF\CacheInterface\tests\concrete\GenericCacheTest;
+use VF\VCPI\CacheSingleton;
+use VF\VCPI\config\Config;
+use VF\VCPI\tests\concrete\GenericCacheTest;
 
 class CacheSingletonTest extends GenericCacheTest
 {

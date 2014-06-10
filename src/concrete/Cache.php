@@ -1,10 +1,10 @@
 <?php
 
-namespace VF\CacheInterface\concrete;
+namespace VF\VCPI\concrete;
 
 require_once(__DIR__."/../config/config.php");
 
-use VF\CacheInterface\config\Config;
+use VF\VCPI\config\Config;
 
 /**
  * Cache: A common interface to various types of caches

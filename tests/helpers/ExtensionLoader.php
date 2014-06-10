@@ -1,6 +1,6 @@
 <?php
 
-namespace VF\CacheInterface\tests\helpers;
+namespace VF\VCPI\tests\helpers;
 
 interface ExtensionLoader
 {

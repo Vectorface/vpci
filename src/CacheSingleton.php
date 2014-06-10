@@ -1,15 +1,15 @@
 <?php
 
-namespace VF\CacheInterface;
+namespace VF\VCPI;
 
 require_once(__DIR__."/concrete/APCCache.php");
 require_once(__DIR__."/concrete/MCCache.php");
 require_once(__DIR__."/concrete/TempFileCache.php");
 require_once(__DIR__."/config/config.php");
 
-use VF\CacheInterface\concrete\TempFileCache;
-use VF\CacheInterface\concrete\APCCache;
-use VF\CacheInterface\concrete\MCCache;
+use VF\VCPI\concrete\TempFileCache;
+use VF\VCPI\concrete\APCCache;
+use VF\VCPI\concrete\MCCache;
 
 class CacheSingleton
 {
