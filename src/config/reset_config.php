@@ -2,4 +2,4 @@
 
 require_once(__DIR__."/config.php");
 
-VF\VCPI\config\Config::reset_defaults();
+VF\vpci\config\Config::reset_defaults();

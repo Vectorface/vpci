@@ -1,10 +1,10 @@
 <?php
 
-namespace VF\VCPI\concrete;
+namespace VF\vpci\concrete;
 
 require_once(__DIR__."/Cache.php");
 
-use VF\VCPI\concrete\Cache;
+use VF\vpci\concrete\Cache;
 
 /**
  * This cache is ridiculously fast, according to basic benchmarks:

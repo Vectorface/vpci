@@ -1,6 +1,6 @@
 <?php
 
-namespace VF\VCPI\config;
+namespace VF\vpci\config;
 
 class Config
 {

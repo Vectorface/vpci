@@ -1,5 +1,5 @@
 {
-	"name": "vectorface/vpci",
+	"name": "Vectorface/vpci",
 	"description": "A single simple interface that handles multiple caching implementations.",
 	"authors": [
 		{
@@ -16,5 +16,8 @@
 	"support": {
         "issues": "https://github.com/vectorface/vpci/issues",
         "source": "https://github.com/vectorface/vpci"
+    },
+    "autoload": {
+        "psr-4": { "vpci\\": "src/" }
     }
 }
