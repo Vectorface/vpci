@@ -18,6 +18,6 @@
         "source": "https://github.com/vectorface/vpci"
     },
     "autoload": {
-        "psr-4": { "vpci\\": "src/" }
+        "psr-4": { "Vectorface\\vpci\\": "src/" }
     }
 }
