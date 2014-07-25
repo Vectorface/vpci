@@ -12,19 +12,17 @@ use Vectorface\vpci\tests\concrete\GenericCacheTest;
 
 class APCCacheTest extends GenericCacheTest
 {
-	protected $cache;
-	protected $config;
+    protected $cache;
+    protected $config;
 
-	protected function setUp()
-	{
-		$this->config = new Config([], false);
-		$this->cache = new APCCache($this->config);
-	}
+    protected function setUp()
+    {
+        $this->config = new Config([], false);
+        $this->cache = new APCCache($this->config);
+    }
 
-	protected function tearDown()
-	{
-		$this->config->setConfigValue("cachePrefix", "");
-	}
-
-	
+    protected function tearDown()
+    {
+        $this->config->setConfigValue("cachePrefix", "");
+    }
 }

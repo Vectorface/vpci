@@ -22,43 +22,49 @@ use Vectorface\vpci\concrete\Cache;
  *   Capable of approximately 153374.23 requests/second
  */
 
-class APCCache extends Cache {
+class APCCache extends Cache
+{
 
-	public function __construct($config = null) {
-		if (!extension_loaded('apc')) {
-			throw new \Exception('Unable to initialize APCCache: APC extension not loaded.');
-		}
-		parent::__construct($config);
-	}
+    public function __construct($config = null)
+    {
+        if (!extension_loaded('apc')) {
+            throw new \Exception('Unable to initialize APCCache: APC extension not loaded.');
+        }
+        parent::__construct($config);
+    }
 
-	public function getConcrete($key) {
-		return apc_fetch($this->prefixKey($key));
-	}
+    public function getConcrete($key)
+    {
+        return apc_fetch($this->prefixKey($key));
+    }
 
-	public function set($key, $value, $ttl) {
-		return apc_store($this->prefixKey($key), $value, $ttl);
-	}
+    public function set($key, $value, $ttl)
+    {
+        return apc_store($this->prefixKey($key), $value, $ttl);
+    }
 
-	/**
-	 * Delete an entry in the cache by key regaurdless of TTL
-	 * @param  Array($string) $keys An array of keys/indexes of cache entries
-	 */
-	public function delete($keys)
-	{
-		foreach ($keys as $key) {
-			apc_delete($this->prefixKey($key));
-		}
-		return null;
-	}
+    /**
+     * Delete an entry in the cache by key regaurdless of TTL
+     * @param  Array($string) $keys An array of keys/indexes of cache entries
+     */
+    public function delete($keys)
+    {
+        foreach ($keys as $key) {
+            apc_delete($this->prefixKey($key));
+        }
+        return null;
+    }
 
-	public function clean() {
-		return NULL;
-	}
+    public function clean()
+    {
+        return null;
+    }
 
-	public function flush() {
-		if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
-			return apc_clear_cache();
-		}
-		return apc_clear_cache('user');
-	}
+    public function flush()
+    {
+        if (version_compare(PHP_VERSION, '5.5.0', '>=')) {
+            return apc_clear_cache();
+        }
+        return apc_clear_cache('user');
+    }
 }

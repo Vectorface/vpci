@@ -11,12 +11,12 @@ use Vectorface\vpci\config\Config;
 
 class MCCacheTest extends GenericCacheTest
 {
-	protected $cache;
-	protected $config;
+    protected $cache;
+    protected $config;
 
-	protected function setUp()
-	{
-		$this->config = new Config([], false);
-		$this->cache = new MCCache($this->config);
-	}
+    protected function setUp()
+    {
+        $this->config = new Config([], false);
+        $this->cache = new MCCache($this->config);
+    }
 }

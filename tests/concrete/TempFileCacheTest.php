@@ -13,79 +13,79 @@ use Vectorface\vpci\tests\concrete\helpers\DateTimeHelper;
 
 class TempFileCacheTest extends GenericCacheTest
 {
-	protected $cache;
-	protected $timehelper;
-	protected $config;
+    protected $cache;
+    protected $timehelper;
+    protected $config;
 
-	protected function setUp()
-	{
-		$this->timehelper = new DateTimeHelper();
-		$this->config = new Config([], false);
-		$this->cache = new TempFileCache($this->config, $this->timehelper);
-	}
+    protected function setUp()
+    {
+        $this->timehelper = new DateTimeHelper();
+        $this->config = new Config([], false);
+        $this->cache = new TempFileCache($this->config, $this->timehelper);
+    }
 
-	protected function tearDown()
-	{
-		$this->cache->flush();
-	}
+    protected function tearDown()
+    {
+        $this->cache->flush();
+    }
 
-	/**
+    /**
      * @dataProvider cacheDataProvider
      */
-	public function testSet($key, $data, $ttl)
-	{
-		$this->cache->set($key, $data, $ttl);
-		$this->assertTrue(file_exists($this->filename($key)));
-	}
+    public function testSet($key, $data, $ttl)
+    {
+        $this->cache->set($key, $data, $ttl);
+        $this->assertTrue(file_exists($this->filename($key)));
+    }
 
-	/**
+    /**
      * @dataProvider cacheDataProvider
      */
-	public function testGetWithTimeout($key, $data, $ttl)
-	{
-		$this->cache->set($key, $data, $ttl);
-		$this->timehelper->change_time($this->timehelper->getTimestamp() + $ttl + 1000);
+    public function testGetWithTimeout($key, $data, $ttl)
+    {
+        $this->cache->set($key, $data, $ttl);
+        $this->timehelper->changeTime($this->timehelper->getTimestamp() + $ttl + 1000);
 
-		$actual = $this->cache->get($key);
-		$this->assertFalse($actual);
-		$this->assertFalse(file_exists($this->filename($key)));
-	}
+        $actual = $this->cache->get($key);
+        $this->assertFalse($actual);
+        $this->assertFalse(file_exists($this->filename($key)));
+    }
 
-	/**
+    /**
      * @dataProvider cacheDataProvider
      */
-	public function testDelete($key, $data, $ttl)
-	{
-		$this->cache->set($key, $data, $ttl);
-		$this->cache->delete([$key]);
-		$this->assertFalse(file_exists($this->filename($key)));
+    public function testDelete($key, $data, $ttl)
+    {
+        $this->cache->set($key, $data, $ttl);
+        $this->cache->delete([$key]);
+        $this->assertFalse(file_exists($this->filename($key)));
 
-		$keys = [$key];
-		for($i = 0; $i<4; $i++) {
-			$keys[] = $key . $i;
-		}
+        $keys = [$key];
+        for ($i = 0; $i<4; $i++) {
+            $keys[] = $key . $i;
+        }
 
-		$this->cache->delete($keys);
+        $this->cache->delete($keys);
 
-		foreach($keys as $k) {
-			$this->assertFalse(file_exists($this->filename($k)));
-		}
-	}
+        foreach ($keys as $k) {
+            $this->assertFalse(file_exists($this->filename($k)));
+        }
+    }
 
-	/**
+    /**
      * @dataProvider cacheDataProvider
      */
     public function testClean($key, $data, $ttl)
     {
-		$this->cache->set($key, $data, $ttl);
-		$this->cache->set($key."2", $data, $ttl+50000);
-		$this->timehelper->change_time($this->timehelper->getTimestamp() + $ttl + 1000);
+        $this->cache->set($key, $data, $ttl);
+        $this->cache->set($key."2", $data, $ttl+50000);
+        $this->timehelper->changeTime($this->timehelper->getTimestamp() + $ttl + 1000);
 
-		$this->cache->clean();
+        $this->cache->clean();
 
 
-		$this->assertFalse(file_exists($this->filename($key)));
-		$this->assertTrue(file_exists($this->filename($key."2")));
+        $this->assertFalse(file_exists($this->filename($key)));
+        $this->assertTrue(file_exists($this->filename($key."2")));
     }
 
     /**
@@ -93,52 +93,52 @@ class TempFileCacheTest extends GenericCacheTest
      */
     public function testFlush($key, $data, $ttl)
     {
-		$this->cache->set($key, $data, $ttl);
-		$this->cache->set($key."2", $data, $ttl+50000);
+        $this->cache->set($key, $data, $ttl);
+        $this->cache->set($key."2", $data, $ttl+50000);
 
-		$this->cache->flush();
+        $this->cache->flush();
 
-		$this->assertFalse(file_exists($this->filename($key)));
-		$this->assertFalse(file_exists($this->filename($key."2")));
+        $this->assertFalse(file_exists($this->filename($key)));
+        $this->assertFalse(file_exists($this->filename($key."2")));
 
     }
 
-	public function cacheDataProvider()
-	{
-		return [
-			[
-				"testKey1",
-				"testData1", 
-				5*60
-			],
-			[
-				"AnotherKey",
-				"Here is some more data that I would like to test with",
-				3
-			],
-			[
-				"IntData",
-				17,
-				3
-			],
-		];
-	}
+    public function cacheDataProvider()
+    {
+        return [
+            [
+                "testKey1",
+                "testData1",
+                5*60
+            ],
+            [
+                "AnotherKey",
+                "Here is some more data that I would like to test with",
+                3
+            ],
+            [
+                "IntData",
+                17,
+                3
+            ],
+        ];
+    }
 
-	/**
-	 * This is a helper function to turn a cache key into
-	 * its correlating file name
-	 * @param  String $key The cache item key
-	 * @return String      The file path for the cache item
-	 */
-	private function filename($key)
-	{
-		$file = sys_get_temp_dir() .
-			"/" .
-			Config::get('tempFileCacheDir') . 
-			"/" .
-			hash("sha256", $key) . 
-			"." . 
-			Config::get('tempFileExt');
-		return $file;
-	}
+    /**
+     * This is a helper function to turn a cache key into
+     * its correlating file name
+     * @param  String $key The cache item key
+     * @return String      The file path for the cache item
+     */
+    private function filename($key)
+    {
+        $file = sys_get_temp_dir() .
+            "/" .
+            Config::get('tempFileCacheDir') .
+            "/" .
+            hash("sha256", $key) .
+            "." .
+            Config::get('tempFileExt');
+        return $file;
+    }
 }
