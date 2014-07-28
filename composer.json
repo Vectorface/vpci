@@ -1,19 +1,19 @@
 {
-	"name": "Vectorface/vpci",
-	"description": "A single simple interface that handles multiple caching implementations.",
-	"authors": [
-		{
-			"name": "Ethan Aubuchon",
-			"email": "ethan@vectorface.ca",
-			"homepage": "http://www.vectorface.com"
-		}
-	],
-	"require": {
-		"php": ">=5.4.0"
-	},
-	"license": "MIT",
-	"homepage": "http://www.vectorface.com",
-	"support": {
+    "name": "Vectorface/vpci",
+    "description": "A single simple interface that handles multiple caching implementations.",
+    "authors": [
+        {
+            "name": "Ethan Aubuchon",
+            "email": "ethan@vectorface.ca",
+            "homepage": "http://www.vectorface.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "license": "MIT",
+    "homepage": "http://www.vectorface.com",
+    "support": {
         "issues": "https://github.com/vectorface/vpci/issues",
         "source": "https://github.com/vectorface/vpci"
     },
