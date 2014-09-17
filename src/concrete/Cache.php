@@ -47,6 +47,7 @@ abstract class Cache
      */
     abstract public function flush();
 
+    abstract public function delete($keys);
 
     public function get($key, $callable = [], $ttl = -1)
     {

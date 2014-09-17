@@ -14,9 +14,11 @@ Using VPCI allows developers to manage information retrieval and caching without
 1. [Use](#use)
 	2. [Getting a Cache Object](#getting-a-cache-object)
 	2. [Get](#get)
+		3.[Write-Through](#write-through)
 	2. [Set](#set)
 	2. [Clean](#clean)
 	2. [Flush](#flush)
+	2. [Delete](#delete)
 1. [Prefix](#prefix)
 
 ***
@@ -110,6 +112,12 @@ The clean function is used to clear any expired items out of the cache.  Note th
 The flush function deletes all items in the cache.
 
 	$cache->flush();
+
+### Delete
+
+The delete function takes an array of keys. It will delete any item from the cache who's key is in the array.
+
+	$cache->delete(["oneKey", "anotherKey", "aThirdKey"]);
 
 ***
 [Top](#vpci-vectorface-php-caching-interface) - [Contents](#contents)
