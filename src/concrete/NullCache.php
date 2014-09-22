@@ -30,5 +30,5 @@ class NullCache extends Cache
 
     public function flush() {}
 
-    public function delete() {}
+    public function delete($keys) {}
 }
