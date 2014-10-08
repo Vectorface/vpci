@@ -11,6 +11,10 @@
     "require": {
         "php": ">=5.4.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "4.2.*",
+        "squizlabs/php_codesniffer": "1.*"
+    },
     "license": "MIT",
     "homepage": "http://www.vectorface.com",
     "support": {
