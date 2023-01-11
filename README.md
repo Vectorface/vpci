@@ -1,6 +1,12 @@
 # VPCI (Vectorface PHP Caching Interface) [![Build Status](https://secure.travis-ci.org/Vectorface/vpci.png?branch=master)](http://travis-ci.org/Vectorface/vpci)
 ***
 
+**Archived Project**
+
+This project is no longer maintained.
+
+***
+
 VPCI is a lightweight, straight forward cache interface that employs a strategy pattern to allow users to use multiple types of cache with a single unified interface.  It has optional built in write through caching to handle information retrieval with a simple, single function call.
 
 Using VPCI allows developers to manage information retrieval and caching without having to worry about imlpementation.
